@@ -1,0 +1,77 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abouknan <abouknan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/14 03:25:35 by abouknan          #+#    #+#             */
+/*   Updated: 2024/12/14 03:25:36 by abouknan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "get_next_line.h"
+
+static char	*read_and_append(int fd, char *buffer, char *storage)
+{
+	int		bytes_read;
+	char	*temp_storage;
+
+	bytes_read = 1;
+	while (bytes_read > 0)
+	{
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		if (bytes_read == -1)
+			return (NULL);
+		buffer[bytes_read] = '\0';
+		if (!storage)
+			storage = ft_strdup("");
+		temp_storage = storage;
+		storage = ft_strjoin(temp_storage, buffer);
+		free(temp_storage);
+		if (!storage)
+			return (NULL);
+		if (ft_strchr(buffer, '\n'))
+			break ;
+	}
+	return (storage);
+}
+
+static char	*get_line(char **storage)
+{
+	char	*line;
+	char	*new_storage;
+	size_t	i;
+
+	if (!*storage || **storage == '\0')
+		return (NULL);
+	i = 0;
+	while ((*storage)[i] != '\n' && (*storage)[i])
+		i++;
+	line = ft_substr(*storage, 0, i + ((*storage)[i] == '\n'));
+	if (!line)
+		return (NULL);
+	new_storage = ft_substr(*storage, i + 1, ft_strlen(*storage) - i);
+	free(*storage);
+	*storage = new_storage;
+	return (line);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	*storage;
+	char		*buffer;
+	char		*line;
+
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd == 1 || fd == 2)
+		return (NULL);
+	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (NULL);
+	storage = read_and_append(fd, buffer, storage);
+	free(buffer);
+	if (!storage)
+		return (NULL);
+	line = get_line(&storage);
+	return (line);
+}

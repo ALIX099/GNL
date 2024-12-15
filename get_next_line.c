@@ -6,7 +6,7 @@
 /*   By: abouknan <abouknan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 03:25:35 by abouknan          #+#    #+#             */
-/*   Updated: 2024/12/14 03:25:36 by abouknan         ###   ########.fr       */
+/*   Updated: 2024/12/16 00:10:04 by abouknan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*read_and_append(int fd, char *buffer, char *storage)
 	int		bytes_read;
 	char	*temp_storage;
 
-	bytes_read = 1;
+	bytes_read = read(fd, buffer, BUFFER_SIZE);
 	while (bytes_read > 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);

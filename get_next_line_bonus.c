@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouknan <abouknan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 03:25:35 by abouknan          #+#    #+#             */
-/*   Updated: 2024/12/17 06:57:14 by abouknan         ###   ########.fr       */
+/*   Updated: 2024/12/17 06:40:01 by abouknan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*read_and_append(int fd, char *buffer, char *storage)
 {
@@ -64,19 +64,21 @@ static char	*get_line(char **storage)
 
 char	*get_next_line(int fd)
 {
-	static char	*storage;
+	static char	*storage[1024];
 	char		*buffer;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd == 1 || fd == 2)
+	if (fd < 0 || fd >= 1024 || BUFFER_SIZE <= 0 || fd == 1 || fd == 2)
 		return (NULL);
 	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
 		return (NULL);
-	storage = read_and_append(fd, buffer, storage);
+	storage[fd] = read_and_append(fd, buffer, storage[fd]);
 	free(buffer);
-	if (!storage)
+	if (!storage[fd])
 		return (NULL);
-	line = get_line(&storage);
+	line = get_line(&storage[fd]);
+	if (!storage[fd])
+		free(storage[fd]);
 	return (line);
 }

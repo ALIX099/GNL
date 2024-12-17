@@ -6,7 +6,7 @@
 /*   By: abouknan <abouknan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 03:25:35 by abouknan          #+#    #+#             */
-/*   Updated: 2024/12/17 07:12:48 by abouknan         ###   ########.fr       */
+/*   Updated: 2024/12/17 10:00:47 by abouknan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,5 @@ char	*get_next_line(int fd)
 	if (!storage[fd])
 		return (NULL);
 	line = get_line(&storage[fd]);
-	if (!storage[fd])
-		free(storage[fd]);
 	return (line);
 }

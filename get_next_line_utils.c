@@ -6,7 +6,7 @@
 /*   By: abouknan <abouknan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 23:30:12 by abouknan          #+#    #+#             */
-/*   Updated: 2024/12/17 06:41:49 by abouknan         ###   ########.fr       */
+/*   Updated: 2024/12/17 07:09:10 by abouknan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	*ft_strjoin(char *s1, const char *s2)
 	while (s2[j])
 		str[i++] = s2[j++];
 	str[i] = '\0';
+	free(s1);
 	return (str);
 }
 

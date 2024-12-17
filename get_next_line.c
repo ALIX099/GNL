@@ -6,7 +6,7 @@
 /*   By: abouknan <abouknan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 03:25:35 by abouknan          #+#    #+#             */
-/*   Updated: 2024/12/17 06:57:14 by abouknan         ###   ########.fr       */
+/*   Updated: 2024/12/17 07:08:57 by abouknan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,8 @@ static char	*read_and_append(int fd, char *buffer, char *storage)
 	while (bytes_read > 0)
 	{
 		buffer[bytes_read] = '\0';
-		if (!storage)
-			storage = ft_strdup("");
 		temp_storage = storage;
 		storage = ft_strjoin(temp_storage, buffer);
-		free(temp_storage);
 		if (!storage)
 			return (NULL);
 		if (ft_strchr(buffer, '\n'))

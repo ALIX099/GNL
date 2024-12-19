@@ -6,7 +6,7 @@
 /*   By: abouknan <abouknan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 03:25:35 by abouknan          #+#    #+#             */
-/*   Updated: 2024/12/17 07:08:57 by abouknan         ###   ########.fr       */
+/*   Updated: 2024/12/19 14:35:10 by abouknan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ static char	*get_line(char **storage)
 	char	*new_storage;
 	size_t	i;
 
-	if (!*storage || **storage == '\0')
+	if (!*storage)
+		return (NULL);
+	if (**storage == '\0')
 		return (NULL);
 	i = 0;
 	while ((*storage)[i] != '\n' && (*storage)[i])

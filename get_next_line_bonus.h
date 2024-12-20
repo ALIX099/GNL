@@ -6,7 +6,7 @@
 /*   By: abouknan <abouknan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 00:18:53 by abouknan          #+#    #+#             */
-/*   Updated: 2024/12/17 06:42:19 by abouknan         ###   ########.fr       */
+/*   Updated: 2024/12/20 14:51:46 by abouknan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # endif
 
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-int		ft_strlen(const char *str);
+size_t	ft_strlen(const char *str);
 char	*ft_strchr(const char *s, int i);
 char	*ft_strdup(const char *s);
 char	*ft_strjoin(char *s1, char const *s2);

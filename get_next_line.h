@@ -6,7 +6,7 @@
 /*   By: abouknan <abouknan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 00:18:53 by abouknan          #+#    #+#             */
-/*   Updated: 2024/12/20 14:51:39 by abouknan         ###   ########.fr       */
+/*   Updated: 2024/12/20 23:27:28 by abouknan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stddef.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <sys/types.h>
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE

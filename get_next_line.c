@@ -6,7 +6,7 @@
 /*   By: abouknan <abouknan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 03:25:35 by abouknan          #+#    #+#             */
-/*   Updated: 2024/12/20 22:49:20 by abouknan         ###   ########.fr       */
+/*   Updated: 2024/12/21 19:46:36 by abouknan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,15 @@ static char	*get_line(char **storage)
 	char	*new_storage;
 	size_t	i;
 
-	if (**storage == '\0')
-		return (NULL);
 	i = 0;
 	while ((*storage)[i] != '\n' && (*storage)[i])
 		i++;
 	line = ft_substr(*storage, 0, i + ((*storage)[i] == '\n'));
 	if (!line)
+	{
+		free(*storage);
 		return (NULL);
+	}
 	new_storage = ft_substr(*storage, i + 1, ft_strlen(*storage) - i);
 	free(*storage);
 	*storage = new_storage;
@@ -74,6 +75,11 @@ char	*get_next_line(int fd)
 	free(buffer);
 	if (!storage)
 		return (NULL);
+	if (*storage == '\0')
+	{
+		free(storage);
+		return (NULL);
+	}
 	line = get_line(&storage);
 	return (line);
 }

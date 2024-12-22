@@ -6,7 +6,7 @@
 /*   By: abouknan <abouknan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 03:25:35 by abouknan          #+#    #+#             */
-/*   Updated: 2024/12/21 20:38:38 by abouknan         ###   ########.fr       */
+/*   Updated: 2024/12/21 23:41:18 by abouknan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ static char	*read_and_append(int fd, char *buffer, char *storage)
 	while (bytes_read > 0)
 	{
 		buffer[bytes_read] = '\0';
+		if (!storage)
+			storage = ft_strdup("");
 		temp_storage = storage;
 		storage = ft_strjoin(temp_storage, buffer);
+		free(temp_storage);
 		if (!storage)
 			return (NULL);
 		if (ft_strchr(buffer, '\n'))
@@ -41,14 +44,13 @@ static char	*get_line(char **storage)
 	size_t	i;
 
 	i = 0;
+	if (**storage == '\0')
+		return (NULL);
 	while ((*storage)[i] != '\n' && (*storage)[i])
 		i++;
 	line = ft_substr(*storage, 0, i + ((*storage)[i] == '\n'));
 	if (!line)
-	{
-		free(*storage);
 		return (NULL);
-	}
 	new_storage = ft_substr(*storage, i + 1, ft_strlen(*storage) - i);
 	free(*storage);
 	*storage = new_storage;
@@ -75,11 +77,6 @@ char	*get_next_line(int fd)
 	free(buffer);
 	if (!storage[fd])
 		return (NULL);
-	if (*storage[fd] == '\0')
-	{
-		free(storage[fd]);
-		return (NULL);
-	}
 	line = get_line(&storage[fd]);
 	return (line);
 }
